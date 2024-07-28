@@ -136,10 +136,10 @@ function Item({
         type="checkbox"
         value={item.packed.toString()}
         onChange={() => onToggleItem(item.id)}
-        id="packed"
+        id={`packed-${item.id}`}
       />
       <label
-        htmlFor="packed"
+        htmlFor={`packed-${item.id}`}
         style={item.packed ? { textDecoration: "line-through" } : {}}
       >
         <span className="item-quantity">{item.quantity}</span>{" "}
