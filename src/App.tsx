@@ -6,32 +6,47 @@ import Stats from "./components/Stats.tsx";
 import { itemType } from "./types";
 
 export default function App() {
-  const [items, setItems] = useState<itemType[]>([]);
+  const [items, setItems] = useState<itemType[]>(
+    JSON.parse(localStorage.getItem("items") || "[]")
+  );
 
-  function handleAddItem(item: itemType) {
-    setItems((prevItems) => [...prevItems, item]);
+  function handleAddItem(item) {
+    setItems((prevItems) => {
+      const updatedItems = [...prevItems, item];
+      localStorage.setItem("items", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
   }
 
   function handleDeleteItem(id: number) {
-    setItems((prevItems) => prevItems.filter((item) => item.id !== id));
+    setItems((prevItems) => {
+      const updatedItems = prevItems.filter((item) => item.id !== id);
+      localStorage.setItem("items", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
   }
 
   function handleToggleItem(id: number) {
-    setItems((prevItems) =>
-      prevItems.map((item) => {
+    setItems((prevItems) => {
+      const updatedItems = prevItems.map((item) => {
         if (item.id === id) {
           return { ...item, packed: !item.packed };
         }
         return item;
-      })
-    );
+      });
+      localStorage.setItem("items", JSON.stringify(updatedItems));
+      return updatedItems;
+    });
   }
 
   function handleClearList() {
     const confirmClear = window.confirm(
       "Are you sure you want to clear the list?"
     );
-    if (confirmClear) setItems([]);
+    if (confirmClear) {
+      setItems([]);
+      localStorage.setItem("items", "[]");
+    }
   }
 
   return (
