@@ -133,3 +133,21 @@ input[type="checkbox"] {
   font-weight: 700;
   padding: 3.2rem 0;
 }
+
+@media (max-width: 600px) {
+  button,
+  select,
+  input {
+    padding: 0.8rem 2rem;
+    font-size: 1.6rem;
+  }
+
+  .add-form button {
+    padding: 1rem 2.5rem;
+    font-size: 1.6rem;
+  }
+
+  .form-question {
+    padding-left: 1rem;
+  }
+}
